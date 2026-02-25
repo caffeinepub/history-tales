@@ -1,0 +1,152 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-authentication-so-users-can-log-in-and-have-their-preferences-language-premium-status-persisted-on-chain-per-principal-show-a-login-prompt-if-the-user-is-not-authenticated",
+      "featureTitle": "Implement Internet Identity authentication so users can log in and have their preferences (language, premium status) persisted on-chain per principal. Show a login prompt if the user is not authenticated.",
+      "files": [
+        "frontend/src/components/LogoutButton.tsx",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-splash-screen-that-displays-the-app-logo-the-title-history-tales-and-transitions-automatically-to-the-login-or-dashboard-screen-after-3-seconds",
+      "featureTitle": "Build a splash screen that displays the app logo, the title 'History Tales', and transitions automatically to the login or dashboard screen after 3 seconds.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/SplashScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-dashboard-screen-that-lists-all-stories-fetched-from-the-backend-displaying-each-story-s-title-and-summary-in-the-user-s-selected-language-english-hindi-or-gujarati-include-a-language-selector-and-a-dark-light-theme-toggle-in-the-app-header",
+      "featureTitle": "Build a dashboard screen that lists all stories fetched from the backend, displaying each story's title and summary in the user's selected language (English, Hindi, or Gujarati). Include a language selector and a dark/light theme toggle in the app header.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/LanguageSelector.tsx",
+        "frontend/src/components/StoryCard.tsx",
+        "frontend/src/components/ThemeToggle.tsx",
+        "frontend/src/hooks/useUserPreferences.ts",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-story-detail-screen-that-displays-the-full-story-content-in-the-selected-language-include-a-read-aloud-button-that-uses-the-browser-s-web-speech-api-to-speak-the-story-content-aloud-in-the-appropriate-language-english-hindi-or-gujarati-reading-aloud-is-a-premium-only-feature",
+      "featureTitle": "Build a story detail screen that displays the full story content in the selected language. Include a 'Read Aloud' button that uses the browser's Web Speech API to speak the story content aloud in the appropriate language (English, Hindi, or Gujarati). Reading aloud is a premium-only feature.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useTextToSpeech.ts",
+        "frontend/src/pages/StoryDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-premium-subscription-screen-that-lists-two-subscription-tiers-monthly-premium-and-yearly-premium-with-descriptions-highlighting-ad-free-reading-advanced-multilingual-audio-and-exclusive-biographies-include-an-upgrade-button-for-each-tier-that-updates-the-user-s-premium-status-in-the-backend",
+      "featureTitle": "Build a premium subscription screen that lists two subscription tiers — Monthly Premium and Yearly Premium — with descriptions highlighting ad-free reading, advanced multilingual audio, and exclusive biographies. Include an 'Upgrade' button for each tier that updates the user's premium status in the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/SubscriptionPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-rich-parchment-and-ink-visual-theme-inspired-by-ancient-manuscripts-and-world-history-warm-sepia-amber-tones-aged-paper-textures-serif-antiqued-typography-ornamental-dividers-and-subtle-gold-accents-enforce-the-theme-consistently-across-all-screens-in-both-light-and-dark-modes",
+      "featureTitle": "Apply a rich, parchment-and-ink visual theme inspired by ancient manuscripts and world history — warm sepia/amber tones, aged-paper textures, serif/antiqued typography, ornamental dividers, and subtle gold accents. Enforce the theme consistently across all screens in both light and dark modes.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-the-generated-app-logo-splash-background-and-hero-banner-images-as-static-assets-from-frontend-public-assets-generated",
+      "featureTitle": "Render the generated app logo, splash background, and hero banner images as static assets from frontend/public/assets/generated.",
+      "files": [
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/SplashScreen.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

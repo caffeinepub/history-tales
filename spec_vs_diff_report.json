@@ -1,0 +1,112 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T04:10:10.040Z",
+  "summary": "The diff implements most of the required functionality across frontend and backend. The Motoko backend is created but uses different field naming conventions and method names than specified in the acceptance criteria. Several key requirements are fully or partially implemented, but there are notable gaps particularly around backend API naming, story seeding, and the getStory(id) method.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Backend exposes getStory(id) to retrieve a single story by ID.",
+      "reason": "The backend main.mo only exposes getStories(), getCallerUserProfile(), getUserProfile(), saveCallerUserProfile(), updateUserProfile(), and addStory(). There is no getStory(id) method.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Backend exposes setUserPreferences(language, isPremium) and getUserPreferences() as specified in the AC.",
+      "reason": "The backend uses different method names: updateUserProfile(preferredLanguage, isPremium) instead of setUserPreferences(), and getCallerUserProfile() instead of getUserPreferences(). The AC explicitly names these methods.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Backend story fields use title_en/hi/gu, summary_en/hi/gu, content_en/hi/gu flat naming as specified in AC.",
+      "reason": "The backend uses nested MultilingualContent structs with .english/.hindi/.gujarati fields instead of the flat title_en/title_hi/title_gu naming specified in the acceptance criteria.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Backend is pre-seeded with at least 4 sample historical stories in English.",
+      "reason": "The backend main.mo initializes an empty stories list with List.empty() and provides an admin-only addStory() function. No seed data or initialization with 4 stories is present in the diff.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "ProfileSetupPage — a dedicated profile setup/onboarding screen shown to new users after first login.",
+      "reason": "The build request does not mention a profile setup or onboarding screen. This is an extra screen not requested in any requirement.",
+      "evidence": [
+        "frontend/src/pages/ProfileSetupPage.tsx",
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Admin-only addStory() backend function with access control and admin token initialization.",
+      "reason": "The build request explicitly states stories are seeded in the backend and no admin panel is needed. Adding an admin-gated addStory() function with MixinAuthorization and caffeineAdminToken is not requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Story search and filter functionality on the dashboard page.",
+      "reason": "No requirement or acceptance criterion mentions a search bar or filtering of stories on the dashboard.",
+      "evidence": [
+        "frontend/src/pages/DashboardPage.tsx"
+      ]
+    },
+    {
+      "description": "getUserProfile(user: Principal) method that allows admins to view any user's profile.",
+      "reason": "The spec only requires getUserPreferences() to retrieve the calling user's own preferences. An admin-accessible getUserProfile(principal) is not part of the requirements.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "saveCallerUserProfile() mutation used during profile setup to create an initial profile record.",
+      "reason": "The spec does not mention a separate initial profile creation step; it only requires setUserPreferences(language, isPremium) for persisting preferences.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/ProfileSetupPage.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.78,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AppLayout.tsx",
+    "frontend/src/components/LanguageSelector.tsx",
+    "frontend/src/components/LogoutButton.tsx",
+    "frontend/src/components/StoryCard.tsx",
+    "frontend/src/components/ThemeToggle.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useTextToSpeech.ts",
+    "frontend/src/hooks/useUserPreferences.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/storyUtils.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/pages/ProfileSetupPage.tsx",
+    "frontend/src/pages/SplashScreen.tsx",
+    "frontend/src/pages/StoryDetailPage.tsx",
+    "frontend/src/pages/SubscriptionPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

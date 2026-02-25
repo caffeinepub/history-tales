@@ -1,0 +1,198 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "History Tales — Global Storytelling & Historical Web App Frontend",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Implement Internet Identity authentication with login prompt and user preference persistence",
+      "acceptanceCriteria": [
+        "A login/welcome screen is shown to unauthenticated users with a 'Sign in with Internet Identity' button.",
+        "After successful authentication the user is redirected to the dashboard.",
+        "The user's principal is used to fetch and save preferences from the backend.",
+        "A sign-out option is available in the app."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "create",
+          "description": "Create a login/welcome page that displays when the user is not authenticated. Include a 'Sign in with Internet Identity' button using the authorization component's useInternetIdentity hook. After successful login, redirect to the dashboard. Use the authorization component to handle authentication. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/LogoutButton.tsx",
+          "operation": "create",
+          "description": "Create a logout button component that uses the authorization component's useInternetIdentity hook to sign out and clear cached data using React Query's queryClient.clear(). Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a splash screen with app logo that transitions to login or dashboard after 3 seconds",
+      "acceptanceCriteria": [
+        "Splash screen displays the app logo image and title 'History Tales' centered.",
+        "After 3 seconds, the app automatically navigates to the login screen (if unauthenticated) or the dashboard (if authenticated).",
+        "Splash screen has a visually rich background consistent with the app theme."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SplashScreen.tsx",
+          "operation": "create",
+          "description": "Create a splash screen page that displays the generated app logo from frontend/public/assets/generated/history-tales-logo.dim_256x256.png and the title 'History Tales'. Use the generated splash background image from frontend/public/assets/generated/splash-bg.dim_1200x800.png. After 3 seconds, use React Router's useNavigate to transition to LoginPage if unauthenticated or DashboardPage if authenticated (check using useInternetIdentity from the authorization component)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register SplashScreen as the default route (/) in the React Router configuration. Add route for LoginPage (/login). Ensure proper navigation flow from splash to login or dashboard based on authentication state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build a dashboard screen listing all stories with language selector and theme toggle",
+      "acceptanceCriteria": [
+        "Dashboard fetches and lists all stories from the backend using React Query.",
+        "Each story card shows the title and summary in the currently selected language, falling back to English if the translation is missing.",
+        "A language selector (EN / HI / GU) is visible in the header and persists selection to the backend.",
+        "A dark/light mode toggle is available in the header and switches the UI theme.",
+        "Clicking a story card navigates to the story detail screen."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create a dashboard page that fetches all stories using React Query and the backend's getStories() method. Display the generated hero banner from frontend/public/assets/generated/dashboard-hero.dim_1200x400.png at the top. Render each story as a clickable card showing title and summary in the user's selected language (english/hindi/gujarati fields from MultilingualContent), falling back to English. Navigate to StoryDetailPage on card click. Include the LanguageSelector and ThemeToggle components in the header along with the LogoutButton."
+        },
+        {
+          "path": "frontend/src/components/LanguageSelector.tsx",
+          "operation": "create",
+          "description": "Create a language selector component with buttons/dropdown for EN/HI/GU. Fetch the current user's preferredLanguage from getCallerUserProfile() and update it by calling updateUserProfile(newLanguage, currentIsPremium) when the user changes language. Use React Query to fetch and mutate user profile data."
+        },
+        {
+          "path": "frontend/src/components/ThemeToggle.tsx",
+          "operation": "create",
+          "description": "Create a theme toggle button component that switches between light and dark modes. Use React state or context to manage theme and apply the appropriate CSS class to the document root or body element."
+        },
+        {
+          "path": "frontend/src/components/StoryCard.tsx",
+          "operation": "create",
+          "description": "Create a story card component that accepts a Story object and the current language code (en/hi/gu). Display the story's title and summary in the selected language by accessing the appropriate field (english/hindi/gujarati) from the MultilingualContent. Make the card clickable to navigate to the story detail page."
+        },
+        {
+          "path": "frontend/src/hooks/useUserPreferences.ts",
+          "operation": "create",
+          "description": "Create a custom hook that wraps React Query calls to getCallerUserProfile() and updateUserProfile(). Return the user's preferred language and premium status, along with a mutation function to update preferences. Handle loading and error states."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register DashboardPage route (/dashboard) in the React Router configuration. Protect this route with authentication guard using the authorization component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build a story detail screen with premium-only Read Aloud feature using Web Speech API",
+      "acceptanceCriteria": [
+        "Story detail screen shows full content in the selected language.",
+        "A 'Read Aloud' button is present; it triggers browser Web Speech API TTS in the correct locale (en-US, hi-IN, or gu-IN).",
+        "If the user is not premium, the 'Read Aloud' button shows a tooltip/prompt to upgrade instead of speaking.",
+        "A 'Stop' button appears while audio is playing to stop TTS.",
+        "Navigating away stops any active TTS."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/StoryDetailPage.tsx",
+          "operation": "create",
+          "description": "Create a story detail page that displays the full story content in the user's selected language (from MultilingualContent). Accept a story ID from the route params and fetch the corresponding story from the stories list. Include a 'Read Aloud' button that checks the user's isPremium status (from getCallerUserProfile()) before enabling TTS. If not premium, show a tooltip or message prompting the user to upgrade (link to SubscriptionPage). Use the useTextToSpeech hook for speech synthesis."
+        },
+        {
+          "path": "frontend/src/hooks/useTextToSpeech.ts",
+          "operation": "create",
+          "description": "Create a custom hook that uses the browser's Web Speech API (window.speechSynthesis) to speak text aloud. Accept text and language code (en/hi/gu) as parameters, map to appropriate locale codes (en-US, hi-IN, gu-IN), and provide play/stop functions. Use useEffect to cancel speech on component unmount."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register StoryDetailPage route (/story/:id) in the React Router configuration. Protect this route with authentication guard using the authorization component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build a premium subscription screen with upgrade functionality",
+      "acceptanceCriteria": [
+        "Subscription screen lists Monthly Premium and Yearly Premium tiers with names, descriptions, and simulated price labels.",
+        "Clicking 'Upgrade' on a tier sets the user's isPremium to true in the backend and shows a success confirmation.",
+        "After upgrading, the 'Read Aloud' feature on story detail screens becomes accessible.",
+        "A 'You are a Premium member' badge or indicator is shown on the screen if the user is already premium."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SubscriptionPage.tsx",
+          "operation": "create",
+          "description": "Create a subscription page that displays two subscription tiers (Monthly Premium and Yearly Premium) with descriptions highlighting ad-free reading, advanced multilingual audio, and exclusive biographies. Include simulated price labels. Each tier has an 'Upgrade' button that calls updateUserProfile(currentLanguage, true) to set isPremium to true. Show a success confirmation message after upgrade. If the user is already premium (check via getCallerUserProfile()), display a 'You are a Premium member' badge."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register SubscriptionPage route (/subscription) in the React Router configuration. Protect this route with authentication guard using the authorization component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Apply a parchment-and-ink historical theme consistently across all screens",
+      "acceptanceCriteria": [
+        "All screens use a consistent warm sepia/amber color palette with gold accents.",
+        "Typography uses a serif or antiqued style for headings and a readable body font.",
+        "Dark mode uses deep parchment-brown and muted gold tones rather than pure black.",
+        "Ornamental or historical-style decorative elements appear on key screens (splash, dashboard header).",
+        "The theme is applied uniformly via Tailwind config or CSS variables."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend the Tailwind configuration to define a custom color palette with warm sepia/amber tones, gold accents, and deep parchment-brown for dark mode. Add custom font families for serif/antiqued headings and readable body text. Define theme colors for both light and dark modes using CSS variables."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define CSS variables for the historical theme colors (sepia, amber, gold) in both light and dark modes. Import and configure serif/antiqued fonts for headings. Add global styles for ornamental dividers and decorative elements. Apply aged-paper texture background styles where appropriate."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a layout component that wraps authenticated pages with a consistent header containing LanguageSelector, ThemeToggle, and LogoutButton. Include navigation links to DashboardPage and SubscriptionPage. Apply the historical theme styling uniformly."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap authenticated routes with the AppLayout component to ensure consistent header and navigation across all pages. Apply theme context provider if needed for dark/light mode switching."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Render generated app logo, splash background, and hero banner images as static assets",
+      "acceptanceCriteria": [
+        "App logo is displayed on the splash screen using the generated image file.",
+        "Splash screen background uses the generated background image.",
+        "Dashboard hero banner uses the generated banner image.",
+        "All image paths reference frontend/public/assets/generated."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SplashScreen.tsx",
+          "operation": "modify",
+          "description": "Update the splash screen to reference the generated logo image at frontend/public/assets/generated/history-tales-logo.dim_256x256.png and the background image at frontend/public/assets/generated/splash-bg.dim_1200x800.png using standard HTML img tags or CSS background-image."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Update the dashboard page to display the generated hero banner image at frontend/public/assets/generated/dashboard-hero.dim_1200x400.png in the header section using an img tag or CSS background."
+        }
+      ]
+    }
+  ]
+}

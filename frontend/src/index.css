@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lato:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Parchment light theme */
+    --background: 0.96 0.025 80;
+    --foreground: 0.22 0.04 55;
+
+    --card: 0.94 0.03 78;
+    --card-foreground: 0.22 0.04 55;
+
+    --popover: 0.97 0.02 80;
+    --popover-foreground: 0.22 0.04 55;
+
+    --primary: 0.48 0.12 55;
+    --primary-foreground: 0.97 0.015 80;
+
+    --secondary: 0.88 0.04 75;
+    --secondary-foreground: 0.28 0.06 55;
+
+    --muted: 0.90 0.03 78;
+    --muted-foreground: 0.50 0.05 60;
+
+    --accent: 0.72 0.14 65;
+    --accent-foreground: 0.15 0.04 50;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.80 0.06 70;
+    --input: 0.85 0.04 75;
+    --ring: 0.55 0.12 60;
+
+    /* Gold accent */
+    --gold: 0.72 0.14 65;
+    --gold-light: 0.85 0.10 75;
+    --gold-dark: 0.55 0.14 58;
+
+    /* Sepia tones */
+    --sepia-100: 0.97 0.015 80;
+    --sepia-200: 0.93 0.03 78;
+    --sepia-300: 0.87 0.05 74;
+    --sepia-400: 0.78 0.07 70;
+    --sepia-500: 0.65 0.09 65;
+    --sepia-600: 0.50 0.10 60;
+    --sepia-700: 0.38 0.09 55;
+    --sepia-800: 0.28 0.07 52;
+    --sepia-900: 0.18 0.05 48;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    --sidebar: 0.93 0.03 78;
+    --sidebar-foreground: 0.22 0.04 55;
+    --sidebar-primary: 0.48 0.12 55;
+    --sidebar-primary-foreground: 0.97 0.015 80;
+    --sidebar-accent: 0.88 0.04 75;
+    --sidebar-accent-foreground: 0.28 0.06 55;
+    --sidebar-border: 0.80 0.06 70;
+    --sidebar-ring: 0.55 0.12 60;
+  }
+
+  .dark {
+    /* Deep parchment-brown dark theme */
+    --background: 0.16 0.04 48;
+    --foreground: 0.92 0.03 78;
+
+    --card: 0.20 0.05 50;
+    --card-foreground: 0.92 0.03 78;
+
+    --popover: 0.22 0.05 50;
+    --popover-foreground: 0.92 0.03 78;
+
+    --primary: 0.72 0.14 65;
+    --primary-foreground: 0.16 0.04 48;
+
+    --secondary: 0.26 0.06 52;
+    --secondary-foreground: 0.88 0.03 76;
+
+    --muted: 0.24 0.05 50;
+    --muted-foreground: 0.65 0.06 65;
+
+    --accent: 0.60 0.12 62;
+    --accent-foreground: 0.16 0.04 48;
+
+    --destructive: 0.704 0.191 22.216;
+    --destructive-foreground: 0.205 0 0;
+
+    --border: 0.30 0.06 52;
+    --input: 0.28 0.06 52;
+    --ring: 0.60 0.12 62;
+
+    --gold: 0.72 0.14 65;
+    --gold-light: 0.82 0.10 72;
+    --gold-dark: 0.55 0.14 58;
+
+    --sepia-100: 0.18 0.05 48;
+    --sepia-200: 0.22 0.05 50;
+    --sepia-300: 0.28 0.06 52;
+    --sepia-400: 0.36 0.07 55;
+    --sepia-500: 0.48 0.08 58;
+    --sepia-600: 0.60 0.09 62;
+    --sepia-700: 0.72 0.10 66;
+    --sepia-800: 0.82 0.07 72;
+    --sepia-900: 0.92 0.03 78;
+
+    --chart-1: 0.488 0.243 264.376;
+    --chart-2: 0.696 0.17 162.48;
+    --chart-3: 0.769 0.188 70.08;
+    --chart-4: 0.627 0.265 303.9;
+    --chart-5: 0.645 0.246 16.439;
+
+    --sidebar: 0.20 0.05 50;
+    --sidebar-foreground: 0.92 0.03 78;
+    --sidebar-primary: 0.72 0.14 65;
+    --sidebar-primary-foreground: 0.16 0.04 48;
+    --sidebar-accent: 0.26 0.06 52;
+    --sidebar-accent-foreground: 0.88 0.03 76;
+    --sidebar-border: 0.30 0.06 52;
+    --sidebar-ring: 0.60 0.12 62;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Lato', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .ornament-divider {
+    @apply flex items-center gap-3 my-4;
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-border;
+  }
+  .ornament-divider-symbol {
+    @apply text-gold text-lg leading-none;
+  }
+
+  .parchment-texture {
+    background-image:
+      radial-gradient(ellipse at 20% 50%, oklch(var(--sepia-300) / 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, oklch(var(--gold-light) / 0.2) 0%, transparent 50%);
+  }
+
+  .story-card {
+    @apply relative overflow-hidden rounded-lg border border-border bg-card transition-all duration-300;
+    @apply hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .story-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(135deg, oklch(var(--gold) / 0.05) 0%, transparent 60%);
+  }
+
+  .story-card:hover::before {
+    @apply opacity-100;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--muted));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--muted-foreground));
+}

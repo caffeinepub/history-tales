@@ -1,0 +1,212 @@
+{
+  "kind": "build_request",
+  "title": "History Tales — Global Storytelling & Historical Web App",
+  "projectName": "History Tales",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a Motoko backend actor that stores historical stories with multilingual fields (title, summary, and full content in English, Hindi, and Gujarati), supports reading/listing all stories, and persists user premium status and preferred language per principal.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "cloud_firestore: ^4.15.3",
+          "stories with fields like title_en, content_en, audio_en, etc.",
+          "isPremium",
+          "currentLanguage"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes a `getStories()` query returning all story records with title_en/hi/gu, summary_en/hi/gu, content_en/hi/gu fields.",
+        "Backend exposes `getStory(id)` to retrieve a single story by ID.",
+        "Backend exposes `setUserPreferences(language, isPremium)` to persist per-user settings keyed by caller principal.",
+        "Backend exposes `getUserPreferences()` to retrieve the calling user's saved language and premium status.",
+        "Backend is pre-seeded with at least 4 sample historical stories in English (title, summary, content)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement Internet Identity authentication so users can log in and have their preferences (language, premium status) persisted on-chain per principal. Show a login prompt if the user is not authenticated.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "firebase_auth: ^4.16.0",
+          "google_sign_in: ^6.2.1",
+          "Sign in with Gmail",
+          "Verify OTP"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A login/welcome screen is shown to unauthenticated users with a 'Sign in with Internet Identity' button.",
+        "After successful authentication the user is redirected to the dashboard.",
+        "The user's principal is used to fetch and save preferences from the backend.",
+        "A sign-out option is available in the app."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build a splash screen that displays the app logo, the title 'History Tales', and transitions automatically to the login or dashboard screen after 3 seconds.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Timer(const Duration(seconds: 3)",
+          "SplashScreen",
+          "'History Tales'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Splash screen displays the app logo image and title 'History Tales' centered.",
+        "After 3 seconds, the app automatically navigates to the login screen (if unauthenticated) or the dashboard (if authenticated).",
+        "Splash screen has a visually rich background consistent with the app theme."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build a dashboard screen that lists all stories fetched from the backend, displaying each story's title and summary in the user's selected language (English, Hindi, or Gujarati). Include a language selector and a dark/light theme toggle in the app header.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "DashboardScreen",
+          "title_$lang",
+          "summary_$lang",
+          "toggleDarkMode",
+          "currentLanguage"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard fetches and lists all stories from the backend using React Query.",
+        "Each story card shows the title and summary in the currently selected language, falling back to English if the translation is missing.",
+        "A language selector (EN / HI / GU) is visible in the header and persists selection to the backend.",
+        "A dark/light mode toggle is available in the header and switches the UI theme.",
+        "Clicking a story card navigates to the story detail screen."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Build a story detail screen that displays the full story content in the selected language. Include a 'Read Aloud' button that uses the browser's Web Speech API to speak the story content aloud in the appropriate language (English, Hindi, or Gujarati). Reading aloud is a premium-only feature.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "StoryDetailScreen",
+          "flutter_tts: ^3.8.5",
+          "audioplayers: ^5.2.1",
+          "Play Audio",
+          "isPremium"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Story detail screen shows full content in the selected language.",
+        "A 'Read Aloud' button is present; it triggers browser Web Speech API TTS in the correct locale (en-US, hi-IN, or gu-IN).",
+        "If the user is not premium, the 'Read Aloud' button shows a tooltip/prompt to upgrade instead of speaking.",
+        "A 'Stop' button appears while audio is playing to stop TTS.",
+        "Navigating away stops any active TTS."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Build a premium subscription screen that lists two subscription tiers — Monthly Premium and Yearly Premium — with descriptions highlighting ad-free reading, advanced multilingual audio, and exclusive biographies. Include an 'Upgrade' button for each tier that updates the user's premium status in the backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "SubscriptionScreen",
+          "monthly_premium",
+          "yearly_premium",
+          "Ad-free reading",
+          "Advanced multilingual audio",
+          "Exclusive biographies",
+          "setPremium(true)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Subscription screen lists Monthly Premium and Yearly Premium tiers with names, descriptions, and simulated price labels.",
+        "Clicking 'Upgrade' on a tier sets the user's isPremium to true in the backend and shows a success confirmation.",
+        "After upgrading, the 'Read Aloud' feature on story detail screens becomes accessible.",
+        "A 'You are a Premium member' badge or indicator is shown on the screen if the user is already premium."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Apply a rich, parchment-and-ink visual theme inspired by ancient manuscripts and world history — warm sepia/amber tones, aged-paper textures, serif/antiqued typography, ornamental dividers, and subtle gold accents. Enforce the theme consistently across all screens in both light and dark modes.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "premium, sleek design",
+          "Customize colors, add animations"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All screens use a consistent warm sepia/amber color palette with gold accents.",
+        "Typography uses a serif or antiqued style for headings and a readable body font.",
+        "Dark mode uses deep parchment-brown and muted gold tones rather than pure black.",
+        "Ornamental or historical-style decorative elements appear on key screens (splash, dashboard header).",
+        "The theme is applied uniformly via Tailwind config or CSS variables."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Render the generated app logo, splash background, and hero banner images as static assets from frontend/public/assets/generated.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "assets/images/",
+          "Add your splash image, icons, etc."
+        ]
+      },
+      "acceptanceCriteria": [
+        "App logo is displayed on the splash screen using the generated image file.",
+        "Splash screen background uses the generated background image.",
+        "Dashboard hero banner uses the generated banner image.",
+        "All image paths reference frontend/public/assets/generated."
+      ]
+    }
+  ],
+  "constraints": [
+    "Authentication must use Internet Identity only — no Firebase, Google Sign-In, or phone OTP.",
+    "All data persistence must use the Motoko backend canister — no Firebase Firestore or external databases.",
+    "No in-app purchase integrations (no App Store / Google Play billing); simulate premium upgrade with a backend flag.",
+    "Do not use Flutter or Dart — the platform uses React + TypeScript + Tailwind on the frontend and Motoko on the backend.",
+    "Do not edit any files under frontend/src/hooks/ or frontend/src/components/ui."
+  ],
+  "nonGoals": [
+    "Real payment processing or billing integration.",
+    "SMS/OTP phone authentication.",
+    "Google Sign-In or social authentication.",
+    "Firebase or any external cloud service integration.",
+    "Mobile app builds (iOS/Android APKs).",
+    "Offline mode or local caching of stories.",
+    "Admin panel for adding/editing stories via UI (stories are seeded in backend).",
+    "Google Translate API or dynamic translation of content."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Circular app logo featuring an open ancient book with a glowing golden compass rose over a deep sepia background, ornate border, elegant and timeless (history-tales-logo.dim_256x256.png)",
+      "Full-page splash screen background with aged parchment paper texture, faded world map silhouette, warm amber and sepia tones, subtle vignette edges (splash-bg.dim_1200x800.png)",
+      "Wide dashboard hero banner showing a collage of iconic world history landmarks — pyramids, colosseum, Taj Mahal — illustrated in a vintage engraving style with gold and sepia tones (dashboard-hero.dim_1200x400.png)"
+    ],
+    "edits": []
+  }
+}

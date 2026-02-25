@@ -1,0 +1,20 @@
+{
+  "frontend/src/index.css": "Global styles with a warm parchment/sepia OKLCH color system for both light and dark modes, Google Fonts imports for Playfair Display (serif headings) and Lato (body), plus utility classes for ornamental dividers, story cards, and scrollbar styling.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with custom serif/sans font families, gold and sepia color tokens mapped to OKLCH CSS variables, parchment/gold box shadows, and fade-in/fade-up keyframe animations.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations — fetching stories, getting/saving/updating the caller's user profile with proper cache invalidation.",
+  "frontend/src/hooks/useTextToSpeech.ts": "Custom hook wrapping the browser Web Speech API to speak text aloud in en-US, hi-IN, or gu-IN locales, with play/stop controls and automatic cleanup on unmount.",
+  "frontend/src/hooks/useUserPreferences.ts": "Convenience hook that wraps the user profile query and update mutation, exposing preferredLanguage, isPremium, setLanguage, and upgradeToPremium helpers.",
+  "frontend/src/lib/storyUtils.ts": "Utility functions for extracting localized text from MultilingualContent objects, with English fallback for missing translations.",
+  "frontend/src/components/LogoutButton.tsx": "Logout button component that clears the Internet Identity session and React Query cache on click.",
+  "frontend/src/components/LanguageSelector.tsx": "Compact EN/HI/GU toggle button group that reads and updates the user's preferred language via the backend.",
+  "frontend/src/components/ThemeToggle.tsx": "Icon button that toggles between light and dark mode, accepting isDark state and onToggle callback as props.",
+  "frontend/src/components/StoryCard.tsx": "Clickable story card displaying a localized title, summary, and decorative icon with hover animations and a \"Read Story\" footer.",
+  "frontend/src/components/AppLayout.tsx": "Authenticated app shell with a sticky header (logo, nav, language selector, theme toggle, logout), an Outlet for page content, and a branded footer with caffeine.ai attribution.",
+  "frontend/src/pages/SplashScreen.tsx": "Full-screen splash page using the generated background and logo images, with a 3-second timer that redirects to /login or /dashboard based on auth state.",
+  "frontend/src/pages/LoginPage.tsx": "Welcome/login page with a feature highlights panel and an Internet Identity sign-in button, redirecting authenticated users to the dashboard.",
+  "frontend/src/pages/DashboardPage.tsx": "Main stories listing page with a hero banner, search input, premium upgrade prompt, and a grid of StoryCard components fetched from the backend.",
+  "frontend/src/pages/StoryDetailPage.tsx": "Full story reading page showing localized title, summary, and content with a premium-gated Read Aloud button using the Web Speech API.",
+  "frontend/src/pages/SubscriptionPage.tsx": "Premium subscription page displaying Monthly and Yearly plan cards with feature lists and an Upgrade button that sets isPremium=true in the backend.",
+  "frontend/src/pages/ProfileSetupPage.tsx": "First-time user onboarding page that creates an initial user profile with default language (en) and non-premium status before redirecting to the dashboard.",
+  "frontend/src/App.tsx": "Root application component with TanStack Router configuration, route tree for all pages (splash, login, setup, dashboard, story detail, subscription), and an AuthGuard wrapper that handles initialization loading state and theme persistence."
+}
